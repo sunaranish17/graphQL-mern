@@ -20,7 +20,11 @@ module.exports = {
 
             const res = await newUser.save();
 
-            
+            const token = jwt.sign({
+                id: res.id,
+                email: res.email,
+                username: res.username
+            })
         }
     }
 }
