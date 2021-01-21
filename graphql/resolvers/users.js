@@ -1,11 +1,13 @@
 const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken'); 
+const jwt = require('jsonwebtoken');
+
+const { SECRET_KEY } = require('../../config');
 
 
 module.exports = {
     Mutation: {
-        register(_, { registerInput: { username, email, password, confirmPassword } }, context, info) {
+        async register(_, { registerInput: { username, email, password, confirmPassword } }, context, info) {
             //TODO validate user data
             //TODO Make sure user doesnot already exist
             //TODO hash password and create an auth token
@@ -13,8 +15,8 @@ module.exports = {
 
             const newUser = new User({
                 email,
-                username, 
-                password, 
+                username,
+                password,
                 createdAt: new Date().toISOString()
             });
 
@@ -24,7 +26,13 @@ module.exports = {
                 id: res.id,
                 email: res.email,
                 username: res.username
-            })
+            }, SECRET_KEY, { expiresIn: '1h' });
+
+            return {
+                ...res._doc,
+                id: res._id,
+                token
+            }
         }
     }
 }
