@@ -10,7 +10,18 @@ module.exports = {
     Mutation: {
         async login(_, { username, password }) {
             const { errors, valid } = validateLoginInput(username, password);
-            
+            const user = USer.findOne({ username });
+
+            if (!user) {
+                errors.general = 'User not found';
+                throw new UserInputError('User not found', { errors });
+            }
+
+            const match = await bcrypt.compare(password, user.password);
+            if (!match) {
+                errors.general = 'Wrong credentials';
+                throw new UserInputError('Wrong credentials', { errors });
+            }
         },
         async register(_, { registerInput: { username, email, password, confirmPassword } }) {
             //  validate user data
