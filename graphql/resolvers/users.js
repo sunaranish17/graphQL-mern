@@ -33,7 +33,13 @@ module.exports = {
                 throw new UserInputError('Wrong credentials', { errors });
             }
 
-            const token = 
+            const token = generateToken(user);
+
+            return {
+                ...user._doc,
+                id: user._id,
+                token
+            }
         },
         async register(_, { registerInput: { username, email, password, confirmPassword } }) {
             //  validate user data
