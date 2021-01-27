@@ -24,7 +24,7 @@ module.exports = {
             if (!valid) {
                 throw new UserInputError('Errors', { errors });
             }
-            const user = USer.findOne({ username });
+            const user = User.findOne({ username });
 
             if (!user) {
                 errors.general = 'User not found';
