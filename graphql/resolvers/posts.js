@@ -55,6 +55,9 @@ module.exports = {
             } catch (error) {
                 throw new Error(error);
             }
+        },
+        async likePost(_, {postId}, context) {
+            
         }
     }
 };
