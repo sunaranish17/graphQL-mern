@@ -1,5 +1,6 @@
 import React from 'react'
 import { useQuery } from '@apollo/react-hooks'
+import gql from 'graphql';
 
 function Home() {
     return (
@@ -8,5 +9,20 @@ function Home() {
         </div>
     )
 }
+
+const FETCH_POST_QUERY = gql`
+    {
+        getPosts{
+        id body createdAt username likeCount
+        likes{
+            username
+        }
+        commentCount
+        comments{
+            id username createdAt body
+        }
+    }
+    }
+`;
 
 export default Home;
