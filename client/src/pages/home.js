@@ -1,20 +1,30 @@
 import React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag';
+import { Grid } from 'semantic-ui-react';
+import { load } from 'dotenv/types';
 
 function Home() {
-    const { loading, data } = useQuery(FETCH_POST_QUERY);
+    const { loading, data: { getPosts: posts } } = useQuery(FETCH_POST_QUERY);
 
     if (data) {
         console.log(data);
     }
 
     return (
-        <Grid columns={3} divided>
+        <Grid columns={3}>
             <Grid.Row>
-                <Grid.Column>
-                    <Image src='/images/wireframe/media-paragraph.png' />
-                </Grid.Column>
+                <h1>Recent Posts</h1>
+            </Grid.Row>
+            <Grid.Row>
+                {loading ? (
+                    <h1>Loading Posts...</h1>
+                ) : (
+                        posts && posts.map(post => (
+                            <Grid.Column>
+                            </Grid.Column>
+                        ))
+                    )}
             </Grid.Row>
         </Grid>
     )
