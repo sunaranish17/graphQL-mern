@@ -2,14 +2,10 @@ import React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag';
 import { Grid } from 'semantic-ui-react';
-import { load } from 'dotenv/types';
+import PostCard from '../components/PostCard';
 
 function Home() {
     const { loading, data: { getPosts: posts } } = useQuery(FETCH_POST_QUERY);
-
-    if (data) {
-        console.log(data);
-    }
 
     return (
         <Grid columns={3}>
@@ -21,7 +17,8 @@ function Home() {
                     <h1>Loading Posts...</h1>
                 ) : (
                         posts && posts.map(post => (
-                            <Grid.Column>
+                            <Grid.Column key={post.id}>
+                                <PostCard post={post} />
                             </Grid.Column>
                         ))
                     )}
