@@ -3,15 +3,20 @@ import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag';
 
 function Home() {
-    const { loading, data: { getPosts: posts } } = useQuery(FETCH_POST_QUERY);
+    const { loading, data } = useQuery(FETCH_POST_QUERY);
 
     if (data) {
         console.log(data);
     }
+
     return (
-        <div>
-            <h1>Home page</h1>
-        </div>
+        <Grid columns={3} divided>
+            <Grid.Row>
+                <Grid.Column>
+                    <Image src='/images/wireframe/media-paragraph.png' />
+                </Grid.Column>
+            </Grid.Row>
+        </Grid>
     )
 }
 
