@@ -7,11 +7,9 @@ import PostCard from '../components/PostCard';
 function Home() {
     const {
         loading,
-        data
+        data: { getPosts: posts }
       } = useQuery(FETCH_POST_QUERY);
-
-      console.log("data>>", data)
-
+      
     return (
         <Grid columns={3}>
             <Grid.Row>
@@ -21,7 +19,7 @@ function Home() {
                 {loading ? (
                     <h1>Loading Posts...</h1>
                 ) : (
-                        data && data.map(post => (
+                        posts && posts.map(post => (
                             <Grid.Column key={post.id}>
                                 <PostCard post={post} />
                             </Grid.Column>
@@ -33,25 +31,25 @@ function Home() {
 }
 
 const FETCH_POST_QUERY = gql`
-    {
-        getPosts{
-            id 
-            body 
-            createdAt 
-            username 
-            likeCount
-            likes{
-                username
-            }
-            commentCount
-            comments{
-                id 
-                username 
-                createdAt 
-                body
-            }
-        }
+{
+  getPosts {
+    id
+    body
+    createdAt
+    username
+    likeCount
+    likes {
+      username
     }
+    commentCount
+    comments {
+      id
+      username
+      createdAt
+      body
+    }
+  }
+}
 `;
 
 export default Home;
