@@ -2,7 +2,9 @@ import React from 'react'
 import { Card, Icon, Label, Image, Button } from 'semantic-ui-react'
 import moment from 'moment';
 
-function PostCard({ post: { body, createdAt, id, username, likeCount, commentCount, likes } }) {
+function PostCard({
+    post: { body, createdAt, id, username, likeCount, commentCount, likes }
+}) {
     return (
         <Card>
             <Card.Content>
@@ -14,7 +16,7 @@ function PostCard({ post: { body, createdAt, id, username, likeCount, commentCou
                 </Card.Description>
             </Card.Content>
             <Card.Content extra>
-                
+
             </Card.Content>
         </Card>
     )
