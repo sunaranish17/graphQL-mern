@@ -10,15 +10,11 @@ function PostCard({ post: { body, createdAt, id, username, likeCount, commentCou
                 <Card.Header>{username}</Card.Header>
                 <Card.Meta>{moment(createdAt).formatNow()}</Card.Meta>
                 <Card.Description>
-                BOSS
+                    {body}
                 </Card.Description>
             </Card.Content>
             <Card.Content extra>
-                <div>
-                    <Button>
-                        Approve
-                    </Button>
-                </div>
+                
             </Card.Content>
         </Card>
     )
