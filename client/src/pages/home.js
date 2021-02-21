@@ -5,9 +5,12 @@ import { Grid } from 'semantic-ui-react';
 import PostCard from '../components/PostCard';
 
 function Home() {
-    const { loading,
-         data: { getPosts: posts } 
-    } = useQuery(FETCH_POST_QUERY);
+    const {
+        loading,
+        data
+      } = useQuery(FETCH_POST_QUERY);
+
+      console.log("data>>", data)
 
     return (
         <Grid columns={3}>
@@ -18,7 +21,7 @@ function Home() {
                 {loading ? (
                     <h1>Loading Posts...</h1>
                 ) : (
-                        posts && posts.map(post => (
+                        data && data.map(post => (
                             <Grid.Column key={post.id}>
                                 <PostCard post={post} />
                             </Grid.Column>
@@ -32,15 +35,22 @@ function Home() {
 const FETCH_POST_QUERY = gql`
     {
         getPosts{
-        id body createdAt username likeCount
-        likes{
-            username
+            id 
+            body 
+            createdAt 
+            username 
+            likeCount
+            likes{
+                username
+            }
+            commentCount
+            comments{
+                id 
+                username 
+                createdAt 
+                body
+            }
         }
-        commentCount
-        comments{
-            id username createdAt body
-        }
-    }
     }
 `;
 
