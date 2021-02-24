@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Form } from 'semantic-ui-react'
+import gql from 'graphql-tag'
 
 function Register() {
 
@@ -56,5 +57,25 @@ function Register() {
         </div>
     )
 }
+
+const REGISTER_USER = gql`
+    mutation register(
+        $username: String!
+        $email: String!
+        $password: String!
+        $confirmPassword: String!
+    ) {
+        register(
+            registerInput: {
+                username: $username
+                email: $email
+                password: $password
+                confirmPassword: $confirmPassword
+            }
+        ){
+            id email username createdAt token
+        }
+    }
+`;
 
 export default Register;
