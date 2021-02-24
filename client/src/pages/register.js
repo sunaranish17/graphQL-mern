@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Form } from 'semantic-ui-react'
 import gql from 'graphql-tag'
+import { useMutation } from '@apollo/react-hooks';
 
 function Register() {
 
@@ -15,9 +16,19 @@ function Register() {
         setValues({ ...values, [event.target.name]: event.target.value })
     }
 
+    const [addUser, {loading}] = useMutation(REGISTER_USER, {
+        update(proxy, result) {
+            console.log(result)
+        },
+        variables: values
+    });
+
     const handleSubmit = (event) => {
         event.preventDefault();
+        addUser();
     }
+
+   
 
     return (
         <div>
