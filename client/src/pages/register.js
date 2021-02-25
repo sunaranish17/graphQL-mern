@@ -12,6 +12,8 @@ function Register() {
         confirmPassword: ""
     });
 
+    const [errors, setErrors] = useState({});
+
     const handleChange = (event) => {
         setValues({ ...values, [event.target.name]: event.target.value })
     }
@@ -19,6 +21,9 @@ function Register() {
     const [addUser, {loading}] = useMutation(REGISTER_USER, {
         update(proxy, result) {
             console.log(result)
+        },
+        onError(err) {
+            setErrors(err.graphQLErrors[0].extensions.exception.errors);
         },
         variables: values
     });
@@ -32,12 +37,13 @@ function Register() {
 
     return (
         <div className="form-container">
-            <Form onSubmit={handleSubmit} noValidate>
+            <Form onSubmit={handleSubmit} noValidate className={loading ? "loading" : ""}>
                 <h1>Register</h1>
                 <Form.Input
                     label="Username"
                     placeholder="Username..."
                     name="username"
+                    type="text"
                     value={values.username}
                     onChange={handleChange}
                 />
@@ -45,6 +51,7 @@ function Register() {
                     label="Email"
                     placeholder="Email..."
                     name="email"
+                    type="email"
                     value={values.email}
                     onChange={handleChange}
                 />
@@ -52,6 +59,7 @@ function Register() {
                     label="Password"
                     placeholder="Password..."
                     name="password"
+                    type="password"
                     value={values.password}
                     onChange={handleChange}
                 />
@@ -59,6 +67,7 @@ function Register() {
                     label="Confirm Password"
                     placeholder="Confirm Password..."
                     name="confirmPassword"
+                    type="password"
                     value={values.confirmPassword}
                     onChange={handleChange}
                 />
