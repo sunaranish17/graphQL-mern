@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Button, Form } from 'semantic-ui-react'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks';
+import { on } from 'nodemon';
 
 function Register() {
 
@@ -18,7 +19,7 @@ function Register() {
         setValues({ ...values, [event.target.name]: event.target.value })
     }
 
-    const [addUser, {loading}] = useMutation(REGISTER_USER, {
+    const [addUser, { loading }] = useMutation(REGISTER_USER, {
         update(proxy, result) {
             console.log(result)
         },
@@ -33,7 +34,7 @@ function Register() {
         addUser();
     }
 
-   
+
 
     return (
         <div className="form-container">
@@ -74,6 +75,15 @@ function Register() {
 
                 <Button type="submit" primary>Register</Button>
             </Form>
+            {Object.keys(errors).length > 0 && (
+                <div className="ui error message">
+                    <ul className="list">
+                        {Object.values(errors).map(value => (
+                            <li key={value}>{value}</li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
     )
 }
