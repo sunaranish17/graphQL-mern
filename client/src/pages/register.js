@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import { Button, Form } from 'semantic-ui-react'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks';
-import { on } from 'nodemon';
 
-function Register() {
+function Register(props) {
 
     const [values, setValues] = useState({
         username: "",
@@ -20,8 +19,9 @@ function Register() {
     }
 
     const [addUser, { loading }] = useMutation(REGISTER_USER, {
-        update(proxy, result) {
-            console.log(result)
+        update(_, result) {
+            console.log(result);
+            props.history.push('/');
         },
         onError(err) {
             setErrors(err.graphQLErrors[0].extensions.exception.errors);
@@ -46,6 +46,7 @@ function Register() {
                     name="username"
                     type="text"
                     value={values.username}
+                    error={errors.username ? true : false}
                     onChange={handleChange}
                 />
                 <Form.Input
@@ -54,6 +55,7 @@ function Register() {
                     name="email"
                     type="email"
                     value={values.email}
+                    error={errors.email ? true : false}
                     onChange={handleChange}
                 />
                 <Form.Input
@@ -62,6 +64,7 @@ function Register() {
                     name="password"
                     type="password"
                     value={values.password}
+                    error={errors.password ? true : false}
                     onChange={handleChange}
                 />
                 <Form.Input
@@ -70,6 +73,7 @@ function Register() {
                     name="confirmPassword"
                     type="password"
                     value={values.confirmPassword}
+                    error={errors.confirmPassword ? true : false}
                     onChange={handleChange}
                 />
 
