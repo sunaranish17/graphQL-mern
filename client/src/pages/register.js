@@ -31,7 +31,7 @@ function Register() {
    
 
     return (
-        <div>
+        <div className="form-container">
             <Form onSubmit={handleSubmit} noValidate>
                 <h1>Register</h1>
                 <Form.Input
