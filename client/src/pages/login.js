@@ -2,13 +2,17 @@ import React, { useState } from 'react'
 import { Button, Form } from 'semantic-ui-react'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks';
+import { useForm } from '../util/hooks';
 
 function Login(props) {
-
-
     const [errors, setErrors] = useState({});
 
-    const [addUser, { loading }] = useMutation(REGISTER_USER, {
+    const {onChange, onSubmit, values} = useForm(loginUserCallback, {
+        username: '',
+        password: ''
+    });
+
+    const [loginUser, { loading }] = useMutation(LOGIN_USER, {
         update(_, result) {
             console.log(result);
             props.history.push('/');
@@ -19,12 +23,9 @@ function Login(props) {
         variables: values
     });
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        addUser();
+    function loginUserCallback() {
+        loginUser();
     }
-
-
 
     return (
         <div className="form-container">
@@ -82,7 +83,7 @@ function Login(props) {
     )
 }
 
-const REGISTER_USER = gql`
+const LOGIN_USER = gql`
     mutation register(
         $username: String!
         $email: String!
