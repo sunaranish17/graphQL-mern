@@ -5,18 +5,8 @@ import { useMutation } from '@apollo/react-hooks';
 
 function Login(props) {
 
-    const [values, setValues] = useState({
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: ""
-    });
 
     const [errors, setErrors] = useState({});
-
-    const handleChange = (event) => {
-        setValues({ ...values, [event.target.name]: event.target.value })
-    }
 
     const [addUser, { loading }] = useMutation(REGISTER_USER, {
         update(_, result) {
@@ -47,7 +37,7 @@ function Login(props) {
                     type="text"
                     value={values.username}
                     error={errors.username ? true : false}
-                    onChange={handleChange}
+                    onChange={onChange}
                 />
                 <Form.Input
                     label="Email"
