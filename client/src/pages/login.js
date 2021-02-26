@@ -7,7 +7,7 @@ import { useForm } from '../util/hooks';
 function Login(props) {
     const [errors, setErrors] = useState({});
 
-    const {onChange, onSubmit, values} = useForm(loginUserCallback, {
+    const { onChange, onSubmit, values } = useForm(loginUserCallback, {
         username: '',
         password: ''
     });
@@ -30,7 +30,7 @@ function Login(props) {
     return (
         <div className="form-container">
             <Form onSubmit={handleSubmit} noValidate className={loading ? "loading" : ""}>
-                <h1>Register</h1>
+                <h1>Login</h1>
                 <Form.Input
                     label="Username"
                     placeholder="Username..."
@@ -41,15 +41,6 @@ function Login(props) {
                     onChange={onChange}
                 />
                 <Form.Input
-                    label="Email"
-                    placeholder="Email..."
-                    name="email"
-                    type="email"
-                    value={values.email}
-                    error={errors.email ? true : false}
-                    onChange={handleChange}
-                />
-                <Form.Input
                     label="Password"
                     placeholder="Password..."
                     name="password"
@@ -58,17 +49,8 @@ function Login(props) {
                     error={errors.password ? true : false}
                     onChange={handleChange}
                 />
-                <Form.Input
-                    label="Confirm Password"
-                    placeholder="Confirm Password..."
-                    name="confirmPassword"
-                    type="password"
-                    value={values.confirmPassword}
-                    error={errors.confirmPassword ? true : false}
-                    onChange={handleChange}
-                />
 
-                <Button type="submit" primary>Register</Button>
+                <Button type="submit" primary>Login</Button>
             </Form>
             {Object.keys(errors).length > 0 && (
                 <div className="ui error message">
@@ -86,17 +68,11 @@ function Login(props) {
 const LOGIN_USER = gql`
     mutation register(
         $username: String!
-        $email: String!
         $password: String!
-        $confirmPassword: String!
     ) {
-        register(
-            registerInput: {
+        login(
                 username: $username
-                email: $email
                 password: $password
-                confirmPassword: $confirmPassword
-            }
         ){
             id email username createdAt token
         }
