@@ -5,6 +5,13 @@ import { useMutation } from '@apollo/react-hooks';
 
 function Register(props) {
 
+    const initialState = {
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+    }
+
     const [values, setValues] = useState({
         username: "",
         email: "",
