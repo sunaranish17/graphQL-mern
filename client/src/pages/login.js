@@ -29,7 +29,7 @@ function Login(props) {
 
     return (
         <div className="form-container">
-            <Form onSubmit={handleSubmit} noValidate className={loading ? "loading" : ""}>
+            <Form onSubmit={onSubmit} noValidate className={loading ? "loading" : ""}>
                 <h1>Login</h1>
                 <Form.Input
                     label="Username"
@@ -47,7 +47,7 @@ function Login(props) {
                     type="password"
                     value={values.password}
                     error={errors.password ? true : false}
-                    onChange={handleChange}
+                    onChange={onChange}
                 />
 
                 <Button type="submit" primary>Login</Button>
