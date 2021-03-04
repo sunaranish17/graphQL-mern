@@ -1,5 +1,9 @@
 import React, { createContext, useReducer } from 'react';
 
+if (localStorage.getItem("jwtToken")) {
+    
+}
+
 const AuthContext = createContext({
     user: null,
     login: (userData) => { },
@@ -36,7 +40,7 @@ function AuthProvider(Props) {
     }
 
     function logout() {
-        localStorage.removeItem("jwtToken");
+        localStorage.removeItem("jwtToken"); 
         dispatch({
             type: 'LOGOUT'
         })
