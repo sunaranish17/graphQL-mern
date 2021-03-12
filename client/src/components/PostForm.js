@@ -1,3 +1,4 @@
+import { gql } from 'graphql-tag';
 import React from 'react'
 import { Button, Form } from 'semantic-ui-react'
 
@@ -5,9 +6,9 @@ import { useForm } from '../util/hooks'
 
 function PostForm() {
 
-    const onSubmit = () => {
-
-    };
+    const {values, onChange, onSubmit} = useForm(createPostCallback, {
+        body: ''
+    });
 
     return (
         <Form onSubmit={onSubmit}>
@@ -26,5 +27,21 @@ function PostForm() {
         </Form>
     )
 }
+
+const CREATE_POST_MUTATION = gql`
+    mutation createPost($body: String!){
+        createPost(body: $body){
+            id body createdAt username
+            likes {
+                id username createdAt
+            }
+            likeCount
+            comments{
+                id body username createdAt
+            }
+            commentCount
+        }
+    }
+`;
 
 export default PostForm
