@@ -3,7 +3,8 @@ import React from 'react'
 import { Button, Form } from 'semantic-ui-react'
 import { useMutation } from '@apollo/react-hooks';
 
-import { useForm } from '../util/hooks'
+import { useForm } from '../util/hooks';
+import { FETCH_POST_QUERY } from '../util/graphql';
 
 function PostForm() {
 
@@ -13,8 +14,13 @@ function PostForm() {
 
     const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
         variables: values,
-        update(_, result) {
+        update(proxy, result) {
             console.log(result)
+            const data = proxy.readQuery({
+                query: FETCH_POST_QUERY
+            })
+            data.getPosts = [result.data.createPost, ...data.getPosts];
+            proxy.writeQuery({ query: FETCH_POST_QUERY, data })
             values.body = ''
         }
     })
