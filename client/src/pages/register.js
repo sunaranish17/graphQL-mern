@@ -9,7 +9,7 @@ import {AuthContext} from '../context/auth';
 function Register(props) {
     const context = useContext(AuthContext);
 
-    const {onChange, onSubmit, value} = useForm(registerUser, {
+    const {onChange, onSubmit, values} = useForm(registerUser, {
         username: "",
         email: "",
         password: "",
