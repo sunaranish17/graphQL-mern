@@ -45,8 +45,8 @@ function PostCard({
                 </Button>
 
                 {user && user.username === username && (
-                    <Button as='div' color='red' onClick={() => console.log('Deleted!!')}>
-                        <Icon name='trash' />
+                    <Button as='div' color='red' floated='right' onClick={() => console.log('Deleted!!')}>
+                        <Icon name='trash' style={{ margin: 0 }} />
                     </Button>
                 )}
             </Card.Content>
