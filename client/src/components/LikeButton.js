@@ -6,6 +6,10 @@ import gql from 'graphql-tag';
 function LikeButton({ post: { id, likeCount, likes } }) {
     const [liked, setLiked] = useState(false);
 
+    const [likePost] = useMutation(LIKE_POST_MUTATION, {
+        variables: { postId: id }
+    })
+
     useEffect(() => {
         if (user && likes.find(like => like.username === user.username)) {
             setLiked(true);
@@ -39,5 +43,17 @@ function LikeButton({ post: { id, likeCount, likes } }) {
         </Button>
     )
 }
+
+const LIKE_POST_MUTATION = gql`
+    mutation likePost($postId: ID!) {
+        likePost(postId: $postId) {
+            id
+            likes {
+                id username
+            }
+            likeCount
+        }
+    }
+`;
 
 export default LikeButton
