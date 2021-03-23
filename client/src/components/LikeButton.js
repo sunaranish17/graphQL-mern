@@ -35,7 +35,7 @@ function LikeButton({ post: { id, likeCount, likes } }) {
     )
 
     return (
-        <Button as='div' labelPosition='right' onClick={likePost}>
+        <Button labelPosition='right' onClick={likePost}>
             {likeButton}
             <Label basic color='teal' pointing='left'>
                 {likeCount}
