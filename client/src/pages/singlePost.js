@@ -1,7 +1,8 @@
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'graphql-tag';
+import moment from 'moment';
 import React from 'react'
-import { Grid, Image } from 'semantic-ui-react';
+import { Card, Grid, Image } from 'semantic-ui-react';
 
 function SinglePost(props) {
     const postId = props.match.params.postId;
@@ -28,6 +29,22 @@ function SinglePost(props) {
                             size="small"
                             float="right"
                         />
+                    </Grid.Column>
+
+                    <Grid.Column width={10}>
+                        <Card fluid>
+                            <Card.Content>
+                                <Card.Header>{username}</Card.Header>
+                                <Card.Meta>{moment(createdAt).fromNow()}</Card.Meta>
+                                <Card.Description>{body}</Card.Description>
+                            </Card.Content>
+
+                            <hr />
+
+                            <Card.Content extra>
+                                
+                            </Card.Content>
+                        </Card>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
