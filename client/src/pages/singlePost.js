@@ -1,11 +1,14 @@
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'graphql-tag';
 import moment from 'moment';
-import React from 'react'
+import React, { useContext } from 'react'
 import { Card, Grid, Image } from 'semantic-ui-react';
+import { AuthContext } from '../context/auth';
 
 function SinglePost(props) {
     const postId = props.match.params.postId;
+
+    const { user } = useContext(AuthContext)
 
     const { data: { getPost } } = useQuery(FETCH_POST_QUERY, {
         variables: {
@@ -42,7 +45,7 @@ function SinglePost(props) {
                             <hr />
 
                             <Card.Content extra>
-                                
+                                {/* <Lik */}
                             </Card.Content>
                         </Card>
                     </Grid.Column>
