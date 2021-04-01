@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'graphql-tag';
 import moment from 'moment';
 import React, { useContext } from 'react'
-import { Card, Grid, Image } from 'semantic-ui-react';
+import { Button, Card, Grid, Icon, Image } from 'semantic-ui-react';
 import { AuthContext } from '../context/auth';
 
 function SinglePost(props) {
@@ -45,7 +45,15 @@ function SinglePost(props) {
                             <hr />
 
                             <Card.Content extra>
-                                {/* <Lik */}
+                                <LikeButton user={user} post={{ id, likeCount, likes }} />
+                                <Button
+                                    as="div"
+                                    labelPosition="right"
+                                    onClick={() => console.log("Clicked")}>
+                                        <Button basic color="blue">
+                                            <Icon name="comments" />
+                                        </Button>
+                                </Button>
                             </Card.Content>
                         </Card>
                     </Grid.Column>
